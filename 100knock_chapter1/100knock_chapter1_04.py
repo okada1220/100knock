@@ -4,11 +4,9 @@ text = 'Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might A
 text = re.sub(',|\.', '', text)
 words = text.split()
 
-number = 0
 word_dic = {}
 
-for word in words:
-    number += 1
+for number, word in enumerate(words, 1):
     if number==1 or 5<=number<10 or 15<=number<17 or number==19:
         word_dic[word[0]] = number
     else:
