@@ -9,22 +9,16 @@ text_Y = 'paragraph'
 
 X = n_gram(text_X, 2)
 Y = n_gram(text_Y, 2)
-print(X)
-print(Y)
+X_group = set(X)
+Y_group = set(Y)
 
-sum = []
-pro = []
-for word in X:
-    if word in Y:
-        pro.append(word)
-    else:
-        sum.append(word)
-sum += Y
+sum = X_group.union(Y_group)
+pro = X_group.intersection(Y_group)
 print(sum)
 print(pro)
 
-X_dif = [w for w in X if w not in Y]
-Y_dif = [w for w in Y if w not in X]
+X_dif = X_group.difference(Y_group)
+Y_dif = Y_group.difference(X_group)
 print(X_dif)
 print(Y_dif)
 
