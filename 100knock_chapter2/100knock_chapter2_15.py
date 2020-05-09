@@ -9,5 +9,5 @@ print('末尾の何行を表示しますか？')
 number = input()
 N = int(number)
 
-for text in texts[len(texts)-N:len(texts)]:
+for text in texts[-N:]:
     print(text)
