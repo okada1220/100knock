@@ -21,12 +21,13 @@ for i in range(len(morph)):
 
 frequency_word = collections.Counter(words)
 
+most_frequency_word = frequency_word.most_common(10)
 word = []
 frequency = []
 for i in range(10):
-    print(frequency_word.most_common()[i])
-    word.append(frequency_word.most_common()[i][0])
-    frequency.append(frequency_word.most_common()[i][1])
+    print(most_frequency_word[i])
+    word.append(most_frequency_word[i][0])
+    frequency.append(most_frequency_word[i][1])
 
 plt.bar(word, frequency, align='center')
 plt.show()

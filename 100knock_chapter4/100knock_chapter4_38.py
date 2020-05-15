@@ -22,9 +22,10 @@ for i in range(len(morph)):
 
 frequency_word = collections.Counter(words)
 
+most_frequency_word = frequency_word.most_common()
 frequency = []
 for i in range(len(frequency_word)):
-    frequency.append(frequency_word.most_common()[i][1])
+    frequency.append(most_frequency_word[i][1])
 
 sns.distplot(frequency, kde=False, rug=False, bins=10000)
 plt.show()

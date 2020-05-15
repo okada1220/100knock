@@ -21,11 +21,12 @@ for i in range(len(morph)):
 
 frequency_word = collections.Counter(words)
 
+most_frequency_word = frequency_word.most_common()
 level = []
 frequency = []
 for i in range(len(frequency_word)):
     level.append(i)
-    frequency.append(frequency_word.most_common()[i][1])
+    frequency.append(most_frequency_word[i][1])
 
 plt.xscale('log')
 plt.yscale('log')
