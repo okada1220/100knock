@@ -1,35 +1,28 @@
 import re
 import pprint
 
-map = []
+morph = []
 with open('neko.txt.mecab', 'r', encoding='utf-8') as f:
     for line in f:
         if not line == 'EOS\n':
             info = re.split(r'\t|,', line)
-            list = {}
-            list['surface'] = info[0]
-            list['base'] = info[7]
-            list['pos'] = info[1]
-            list['pos1'] = info[2]
-            map.append(list)
+            key_list = {}
+            key_list['surface'] = info[0]
+            key_list['base'] = info[7]
+            key_list['pos'] = info[1]
+            key_list['pos1'] = info[2]
+            morph.append(key_list)
 
-longestNP = []
-longestNP_len = 0
+NP_list = []
 NP = ''
 NP_len = 0
-for i in range(len(map)):
-    if map[i]['pos'] == '名詞':
-        NP += map[i]['surface']
+for i in range(len(morph)):
+    if morph[i]['pos'] == '名詞':
+        NP += morph[i]['surface']
         NP_len += 1
     else:
-        if NP_len > longestNP_len:
-            longestNP = []
-            longestNP.append(NP)
-            longestNP_len = NP_len
-            print(i)
-        elif NP_len == longestNP_len:
-            longestNP.append(NP)
-            print(i)
-        NP = ''
+        if NP_len > 1:
+            NP_list.append(NP)
+        NP =''
         NP_len = 0
-print(longestNP)
+pprint.pprint(NP_list)
