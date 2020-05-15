@@ -2,10 +2,6 @@ import re
 import pprint
 import collections
 import matplotlib.pyplot as plt
-from matplotlib.font_manager import FontProperties
-
-font_path = 'C:\Users\naoki\OneDrive\デスクトップ\研究室関連\100本ノック\ipaexg.ttf'
-font_prop = FontProperties(fname=font_path)
 
 morph = []
 with open('neko.txt.mecab', 'r', encoding='utf-8') as f:
