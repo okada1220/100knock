@@ -2,6 +2,7 @@ import re
 import pprint
 import collections
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 morph = []
 with open('neko.txt.mecab', 'r', encoding='utf-8') as f:
@@ -25,8 +26,9 @@ frequency = []
 for i in range(len(frequency_word)):
     frequency.append(frequency_word.most_common()[i][1])
 
-plt.hist(frequency)
+sns.distplot(frequency, kde=False, rug=False, bins=10000)
 plt.show()
 
-plt.hist(frequency, range=(0, 20), bins=20)
+SNS = sns.distplot(frequency, kde=False, rug=False, bins=10000)
+SNS.set(xlim=(0, 20))
 plt.show()
