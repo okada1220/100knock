@@ -2,6 +2,7 @@ import re
 import pprint
 import collections
 import matplotlib.pyplot as plt
+import japanize_matplotlib
 
 morph = []
 with open('neko.txt.mecab', 'r', encoding='utf-8') as f:
