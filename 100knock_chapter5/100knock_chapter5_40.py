@@ -12,13 +12,13 @@ class Morph:
 def main():
     mecab = MeCab.Tagger()
     All_Morph_list = []
-    frag = 0
+    flag = 0
     with open('neko.txt.cabocha', 'r', encoding='utf-8') as file:
         for line in file:
             if not line == 'EOS\n':
-                if frag == 0:
+                if flag == 0:
                     Morph_list = []
-                    frag = 1
+                    flag = 1
                 line.strip()
                 line = re.sub(r'[-+D]|\s', '', line)
                 word = mecab.parse(line).split('\n')
