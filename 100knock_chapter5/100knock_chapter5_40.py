@@ -30,9 +30,8 @@ def main():
                     Morph_list = []
 
     pprint.pprint(All_Morph_list[2])
-    for i in range(len(All_Morph_list[2])):
-        x = All_Morph_list[2][i]
-        print(x.surface, x.base, x.pos, x.pos1)
+    for morph in All_Morph_list[2]:
+        print(morph.surface, morph.base, morph.pos, morph.pos1)
 
 if __name__ == '__main__':
     main()

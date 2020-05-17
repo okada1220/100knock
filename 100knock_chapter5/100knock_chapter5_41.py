@@ -45,12 +45,11 @@ def main():
             All_Chunk_list[x][target.dst - 1].set_srcs(y + 1)
 
     pprint.pprint(All_Chunk_list[7])
-    for i in range(len(All_Chunk_list[7])):
-        z = All_Chunk_list[7][i]
-        for morph in z.morphs:
+    for chunk in All_Chunk_list[7]:
+        for morph in chunk.morphs:
             pprint.pprint(morph.surface)
-        print('→ 係り先は' + str(z.dst) + '項目です。')
-        for src in z.srcs:
+        print('→ 係り先は' + str(chunk.dst) + '項目です。')
+        for src in chunk.srcs:
             print('← 係り元は' + str(src) + '項目です。')
 
 if __name__ == '__main__':
