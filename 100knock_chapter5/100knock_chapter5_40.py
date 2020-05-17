@@ -20,7 +20,7 @@ def main():
                     Morph_list = []
                     flag = 1
                 line.strip()
-                line = re.sub(r'[-+D]|\s', '', line)
+                line = re.sub(r'[-+D]|\s|\|', '', line)
                 word = mecab.parse(line).split('\n')
                 word.remove('')
                 word.remove('EOS')
