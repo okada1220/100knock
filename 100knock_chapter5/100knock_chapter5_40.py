@@ -16,7 +16,7 @@ def main():
     with open('neko.txt.cabocha', 'r', encoding='utf-8') as file:
         for line in file:
             if not line == 'EOS\n':
-                line.strip()
+                line = line.strip()
                 line = re.sub(r'[-+D]|\s|\|', '', line)
                 word = mecab.parse(line).split('\n')
                 word.remove('')

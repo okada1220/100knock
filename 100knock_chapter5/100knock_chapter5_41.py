@@ -22,7 +22,7 @@ def main():
             if not line == 'EOS\n':
                 Morph_list = []
                 item +=1
-                line.strip()
+                line = line.strip()
                 dst_search = dst_compile.search(line)
                 dst = int((line.count('-') + 1)/ 2) + item
                 line = re.sub(r'[-+D]|\s|\|', '', line)
