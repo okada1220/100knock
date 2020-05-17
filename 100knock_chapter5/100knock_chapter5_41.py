@@ -16,7 +16,7 @@ def main():
     All_Chunk_list = []
     Chunk_list = []
     item = 0
-    dst_compile = re.compile('[-+D]')
+    dst_compile = re.compile('\-+D')
     with open('neko.txt.cabocha', 'r', encoding='utf-8') as file:
         for line in file:
             if not line == 'EOS\n':
@@ -25,7 +25,7 @@ def main():
                 line = line.strip()
                 dst_search = dst_compile.search(line)
                 dst = int((line.count('-') + 1)/ 2) + item
-                line = re.sub(r'[-+D]|\s|\|', '', line)
+                line = re.sub(r'\-+D|\s|\|', '', line)
                 word = mecab.parse(line).split('\n')
                 word.remove('')
                 word.remove('EOS')

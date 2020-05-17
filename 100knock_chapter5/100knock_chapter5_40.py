@@ -17,7 +17,7 @@ def main():
         for line in file:
             if not line == 'EOS\n':
                 line = line.strip()
-                line = re.sub(r'[-+D]|\s|\|', '', line)
+                line = re.sub(r'\-+D|\s|\|', '', line)
                 word = mecab.parse(line).split('\n')
                 word.remove('')
                 word.remove('EOS')
