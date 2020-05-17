@@ -14,14 +14,11 @@ class Chunk:
 def main():
     mecab = MeCab.Tagger()
     All_Chunk_list = []
-    frag = 0
+    Chunk_list = []
+    item = 0
     dst_compile = re.compile('[-+D]')
     with open('neko.txt.cabocha', 'r', encoding='utf-8') as file:
         for line in file:
-            if frag == 0:
-                Chunk_list = []
-                item = 0
-                frag = 1
             if not line == 'EOS\n':
                 Morph_list = []
                 item +=1
