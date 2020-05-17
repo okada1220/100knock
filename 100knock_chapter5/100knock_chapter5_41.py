@@ -11,7 +11,7 @@ class Chunk:
     def set_srcs(self, srcs):
         self.srcs.append(srcs)
 
-def main():
+def get_All_Chunk_list(filename):
     mecab = MeCab.Tagger()
     All_Chunk_list = []
     Chunk_list = []
@@ -21,10 +21,10 @@ def main():
         for line in file:
             if not line == 'EOS\n':
                 Morph_list = []
-                item +=1
+                item += 1
                 line = line.strip()
                 dst_search = dst_compile.search(line)
-                dst = int((line.count('-') + 1)/ 2) + item
+                dst = int((line.count('-') + 1) / 2) + item
                 line = re.sub(r'\-+D|\s|\|', '', line)
                 word = mecab.parse(line).split('\n')
                 word.remove('')
@@ -44,6 +44,10 @@ def main():
             target = All_Chunk_list[x][y]
             All_Chunk_list[x][target.dst - 1].set_srcs(y + 1)
 
+    return All_Chunk_list
+
+def main():
+    All_Chunk_list = get_All_Chunk_list('neko.txt.cabocha')
     pprint.pprint(All_Chunk_list[7])
     for chunk in All_Chunk_list[7]:
         for morph in chunk.morphs:
