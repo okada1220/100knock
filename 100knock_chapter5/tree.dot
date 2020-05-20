@@ -1,6 +1,18 @@
 digraph {
+node [fontname = "MS Gothic"];
+subgraph{
  a -> b
  a -> c
  b -> a
  c -> d
+ }
+subgraph{
+ x -> y
+ y -> z
+ z -> x
+ }
+subgraph{
+ "女だけれども" -> "manyaslip'twixtthecupandthelipと"
+ "manyaslip'twixtthecupandthelipと" -> "云う"
+}
 }
