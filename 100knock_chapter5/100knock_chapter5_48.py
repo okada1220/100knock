@@ -15,13 +15,10 @@ def main():
                 chunk_surface.append(chapter5_42.get_chunk_surface(chunk))
 
                 while(not chunk.dst in chunk.srcs):
-                    chunk_surface.append(' -> ')
                     chunk_surface.append(chapter5_42.get_chunk_surface(All_Chunk_list[j][chunk.dst - 1]))
                     chunk = All_Chunk_list[j][chunk.dst - 1]
 
-                if len(chunk_surface) > 0:
-                    path = ''.join(chunk_surface)
-
+                path = ' -> '.join(chunk_surface)
                 print(path)
 
 if __name__ == '__main__':
