@@ -15,8 +15,6 @@ def main():
     All_Chunk_list = chapter5_41.get_All_Chunk_list('neko.txt.cabocha')
     for j in range(len(All_Chunk_list)):
         for i in range(len(All_Chunk_list[j])):
-            N_flag = 0
-            V_flag = 0
             chunk = All_Chunk_list[j][i]
             N_flag = check_chunk(chunk, '名詞')
             chunk_surface = chapter5_42.get_chunk_surface(chunk)

@@ -6,7 +6,7 @@ chapter5_41 = __import__('100knock_chapter5_41')
 def get_chunk_surface(chunk):
     chunk_surface = ''
     for morph in chunk.morphs:
-        if not morph.surface == '。' and not morph.surface == '、':
+        if not morph.pos == '記号':
             chunk_surface += morph.surface
     return chunk_surface
 
