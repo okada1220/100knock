@@ -14,6 +14,7 @@ def main():
             if chapter5_43.check_chunk(chunk, '名詞'):
                 chunk_surface.append(chapter5_42.get_chunk_surface(chunk))
 
+                # dst が続く限りパスをつなぐ
                 while(not chunk.dst in chunk.srcs):
                     chunk_surface.append(chapter5_42.get_chunk_surface(All_Chunk_list[j][chunk.dst - 1]))
                     chunk = All_Chunk_list[j][chunk.dst - 1]

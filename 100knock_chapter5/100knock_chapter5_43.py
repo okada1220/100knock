@@ -4,6 +4,7 @@ import pprint
 chapter5_41 = __import__('100knock_chapter5_41')
 chapter5_42 = __import__('100knock_chapter5_42')
 
+# Chunk に pos が含まれる(1)か否(0)かを返す
 def check_chunk(chunk, pos):
     pos_flag = 0
     for morph in chunk.morphs:

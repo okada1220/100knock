@@ -5,13 +5,16 @@ chapter5_41 = __import__('100knock_chapter5_41')
 chapter5_42 = __import__('100knock_chapter5_42')
 chapter5_43 = __import__('100knock_chapter5_43')
 
+# V_chunk の格バターンを chunk_list の中から見つけて、動詞を V_base 助詞を P_base_list で返す
 def search_pattern(chunk_list, V_chunk):
     V_base = ''
     P_base_list = []
+    # 動詞の原形を取得する
     for V_morph in V_chunk.morphs:
         if V_morph.pos == '動詞':
             V_base = V_morph.base
             break
+    # 係る全ての助詞をリストで取得する
     for i in V_chunk.srcs:
         if not V_chunk.dst == i:
             P_chunk = chunk_list[i-1]
@@ -27,7 +30,7 @@ def main():
     for j in range(len(All_Chunk_list)):
         for i in range(len(All_Chunk_list[j])):
             chunk = All_Chunk_list[j][i]
-            if chapter5_43.check_chunk(chunk, '動詞'):
+            if chapter5_43.check_chunk(chunk, '動詞'):  # 動詞の時だけ格バターンを抽出
                 V_base, P_base_list = search_pattern(All_Chunk_list[j], chunk)
                 P_base_list.sort()
                 P_base = ' '.join(P_base_list)

@@ -16,6 +16,7 @@ def main():
                 V_base_list, VP_base_chunk_list = chapter5_46.search_connection(All_Chunk_list[j], chunk, '動詞')
                 VP_base_chunk_list.sort(key=lambda x: x[0])
 
+                # 「サ行変格接続名詞＋を」が係っていれば、動詞とまとめて multiV_base とする
                 for VP_base_chunk in VP_base_chunk_list:
                     VP_chunk = VP_base_chunk[1]
                     if VP_chunk.morphs[0].pos1 == 'サ変接続' and VP_chunk.morphs[1].base == 'を' and len(VP_chunk.morphs) == 2:

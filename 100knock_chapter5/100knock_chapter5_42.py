@@ -3,6 +3,7 @@ import re
 import pprint
 chapter5_41 = __import__('100knock_chapter5_41')
 
+# Chunk ごとの表層格 chunk_surface を返す
 def get_chunk_surface(chunk):
     chunk_surface = ''
     for morph in chunk.morphs:
@@ -16,7 +17,7 @@ def main():
         for i in range(len(All_Chunk_list[j])):
             chunk = All_Chunk_list[j][i]
             chunk_surface = get_chunk_surface(chunk)
-            if not (chunk.dst - 1) == i:
+            if not (chunk.dst - 1) == i:  # 仕様で根となる Chunk の dst は自分自身になっているので
                 target_chunk = All_Chunk_list[j][chunk.dst - 1]
                 target_chunk_surface = get_chunk_surface(target_chunk)
                 print(chunk_surface + '\t' + target_chunk_surface)
