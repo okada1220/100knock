@@ -17,8 +17,8 @@ def main():
     load_model = pickle.load(open('model.sav', 'rb'))
     y_train_pred = load_model.predict(x_train_vec)
     y_test_pred = load_model.predict(x_test_vec)
-    print(confusion_matrix(y_train, y_train_pred))
-    print(confusion_matrix(y_test, y_test_pred))
+    print(confusion_matrix(y_train, y_train_pred, labels=['b', 't', 'e', 'm']))
+    print(confusion_matrix(y_test, y_test_pred, labels=['b', 't', 'e', 'm']))
 
 if __name__ == '__main__':
     main()
