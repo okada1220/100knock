@@ -21,7 +21,8 @@ def main():
     words_vec = vectorizer.transform([words])
 
     # 学習したモデルを用いて予測を行います
-    load_model = pickle.load(open('model.sav', 'rb'))
+    with open('model.sav', 'rb') as f:
+        load_model = pickle.load(f)
     y_pred = load_model.predict(words_vec)
     y_pred_proba = load_model.predict_proba(words_vec)
     print(y_pred)

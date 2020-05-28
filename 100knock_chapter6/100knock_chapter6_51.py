@@ -8,7 +8,7 @@ def make_featurefile(filename, feature_filename):
     with open(filename, 'r', encoding='utf-8') as f:
         for line in f:
             category, title = line.split('\t')
-            title = re.sub('\n', '', title)
+            title = title.strip()
             words = mecab.parse(title)
             write_file.write(category + '\t' + words)
     write_file.close()

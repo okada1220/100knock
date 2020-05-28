@@ -24,7 +24,8 @@ def main():
     names = vectorizer.get_feature_names()
 
     # モデルから重みを得ます
-    load_model = pickle.load(open('model.sav', 'rb'))
+    with open('model.sav', 'rb') as f:
+        load_model = pickle.load(f)
     # クラス分類に用いる線が４本ある　-> ４つの重みのパターンがある
     for x in range(4):
         get_feature_word(x, load_model, names)
