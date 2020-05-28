@@ -1,6 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import precision_score, recall_score, f1_score
-from sklearn.metrics import accuracy_score
 import pickle
 chapter6_52 = __import__('100knock_chapter6_52')
 
