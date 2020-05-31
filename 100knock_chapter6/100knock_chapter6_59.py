@@ -18,7 +18,7 @@ def main():
     c_params = [0.1 * i for i in range(1, 10)]
     c_params += [i for i in range(1, 10)]
     best_score = 0
-    # 学習アルゴリズムはロジスティック回帰モデルと線形SVMで計算します
+    # 学習アルゴリズムはロジスティック回帰モデルと線形SVM(サポートベクターマシン)で計算します
     for c in c_params:
         lr = LogisticRegression(solver='liblinear', C=c)
         linear_svc = LinearSVC(C=c)
