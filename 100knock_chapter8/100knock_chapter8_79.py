@@ -49,5 +49,8 @@ def main():
     test_accuracy = model.evaluate(x_test, y_test)
     print('accuracy:', test_accuracy)
 
+    # 1336/1336 [==============================] - 0s 105us/sample - loss: 0.8917 - accuracy: 0.9154
+    # accuracy: [0.8916766409334186, 0.91541916]
+
 if __name__ == '__main__':
     main()
