@@ -49,9 +49,9 @@ def main():
             optimizer.step()
             loss_sum += loss
             accuracy_sum += int(category_vector_list[i] == torch.argmax(pred_category_vector[-1][-1]))
-        accuracy = accuracy_sum / len(range(len(words_vector_list)))
+        accuracy = accuracy_sum / len(words_vector_list)
         print('accuracy(train):', accuracy)
-        loss_average = loss_sum / len(range(len(words_vector_list)))
+        loss_average = loss_sum / len(words_vector_list)
         print('loss(train):', loss_average)
 
     words_vector_list, category_vector_list = make_dataset('../100knock_chapter6/test.feature.txt', word_id_dict, category_table)
@@ -66,9 +66,9 @@ def main():
         loss = criterion(pred_category_vector[-1], category_vector.type(torch.long))
         loss_sum += loss
         accuracy_sum += int(category_vector_list[i] == torch.argmax(pred_category_vector[-1][-1]))
-    accuracy = accuracy_sum / len(range(len(words_vector_list)))
+    accuracy = accuracy_sum / len(words_vector_list)
     print('accuracy(test):', accuracy)
-    loss_average = loss_sum / len(range(len(words_vector_list)))
+    loss_average = loss_sum / len(words_vector_list)
     print('loss(test):', loss_average)
 
 if __name__ == '__main__':
