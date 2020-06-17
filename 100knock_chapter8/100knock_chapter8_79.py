@@ -38,7 +38,7 @@ def main():
         ModelCheckpoint(filepath)
     ]
 
-    # バックサイズ 8 で学習させます
+    # バッチサイズ 8 で学習させます
     model.fit(x_train, y_train,
               validation_data=(x_valid, y_valid),
               epochs=100,
