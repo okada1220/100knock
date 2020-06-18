@@ -17,7 +17,7 @@ def main():
     HIDDEN_SIZE1 = 300
     HIDDEN_SIZE2 = 50
     OUTPUT_SIZE = 4
-    model = chapter9_81_2.MyRNN2(INPUT_SIZE, HIDDEN_SIZE1, HIDDEN_SIZE2, OUTPUT_SIZE)
+    model = chapter9_81_2.MyRNN2(INPUT_SIZE, HIDDEN_SIZE1, HIDDEN_SIZE2, OUTPUT_SIZE).cuda()
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters())
 
@@ -37,8 +37,8 @@ def main():
             model.reset()
             optimizer.zero_grad()
             # 各事例で損失を求め、loss_batch_sum でバッチサイズ分合計します
-            words_vector = words_vector_list[i]
-            category_vector = category_vector_list[i]
+            words_vector = words_vector_list[i].cuda()
+            category_vector = category_vector_list[i].cuda()
             pred_category_vector = model.forward(words_vector)
             loss = criterion(pred_category_vector[-1], category_vector.type(torch.long))
             loss_batch_sum += loss
