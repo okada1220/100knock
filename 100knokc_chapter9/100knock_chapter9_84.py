@@ -2,22 +2,7 @@ import gensim
 import torch
 from torch import nn
 chapter9_80 = __import__('100knock_chapter9_80')
-
-# 単語ベクトルを導入するための make_dataset です
-# words_vector_list には各単語の ID が入ってます
-# category_vector_list にはカテゴリの対応する数字(0~3)が入ってます
-def make_dataset2(filename, word_id_dict, category_table):
-    words_vector_list = []
-    category_vector_list = []
-    with open(filename, 'r', encoding='utf-8') as file:
-        for line in file:
-            category, title = line.split('\t')
-            words = title.strip().split()
-            words_vector = torch.stack([torch.LongTensor([word_id_dict.get(word, 0)]) for word in words], dim=0)
-            category_vector = torch.Tensor([category_table[category]])
-            words_vector_list.append(words_vector)
-            category_vector_list.append(category_vector)
-    return words_vector_list, category_vector_list
+chapter9_83 = __import__('100knock_chapter9_83')
 
 # RNN を作成し、保持するクラスです
 class MyRNN4(nn.Module):
@@ -35,6 +20,7 @@ class MyRNN4(nn.Module):
 
     def forward(self, input):
         input = self.embed(input)
+        print(input)
         output, self.hidden = self.rnn(input, self.hidden)
         output = self.out(output)
         return output
@@ -63,7 +49,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters())
 
     # 学習データを読み込みます
-    words_vector_list, category_vector_list = make_dataset2('../100knock_chapter6/mini-train.feature.txt', word_id_dict, category_table)
+    words_vector_list, category_vector_list = chapter9_83.make_dataset_embed('../100knock_chapter6/minimini-train.feature.txt', word_id_dict, category_table)
 
     # エポック回数３回で学習させます
     EPOCH_NUM = 3
@@ -90,7 +76,7 @@ def main():
         print('loss(train):', loss_average)
 
     # 評価データを読み込みます
-    words_vector_list, category_vector_list = make_dataset2('../100knock_chapter6/mini-test.feature.txt', word_id_dict, category_table)
+    words_vector_list, category_vector_list = chapter9_83.make_dataset_embed('../100knock_chapter6/mini-test.feature.txt', word_id_dict, category_table)
 
     # 初期化します
     accuracy_sum = 0
@@ -108,6 +94,38 @@ def main():
     print('accuracy(test):', accuracy)
     loss_average = loss_sum / len(words_vector_list)
     print('loss(test):', loss_average)
+
+    # tensor([[ 815],
+    #         [ 816],
+    #         [   7],
+    #         [  92],
+    #         [5212],
+    #         [   0],
+    #         [  26],
+    #         [  23],
+    #         [3047],
+    #         [ 673],
+    #         [  29],
+    #         [   0]])
+    # tensor([[[ 8.3496e-02, -7.2937e-03, -2.6489e-02,  ...,  3.1494e-02,
+    #           -2.6489e-02,  5.1270e-02]],
+    #
+    #         [[ 5.6885e-02,  1.0742e-01, -6.4941e-02,  ..., -2.7222e-02,
+    #            1.0681e-02, -2.3145e-01]],
+    #
+    #         [[-1.7285e-01,  2.7930e-01,  1.0693e-01,  ...,  1.2305e-01,
+    #            1.2988e-01, -1.8262e-01]],
+    #
+    #         ...,
+    #
+    #         [[ 7.0801e-02, -3.4912e-02,  6.5430e-02,  ..., -2.0801e-01,
+    #           -9.3262e-02, -1.7188e-01]],
+    #
+    #         [[ 2.3438e-02, -1.4062e-01,  1.6113e-01,  ..., -1.5625e-01,
+    #           -2.0905e-03,  7.9590e-02]],
+    #
+    #         [[ 1.1292e-03, -8.9645e-04,  3.1853e-04,  ..., -1.5640e-03,
+    #           -1.2302e-04, -8.6308e-05]]], grad_fn=<EmbeddingBackward>)
 
 if __name__ == '__main__':
     main()
