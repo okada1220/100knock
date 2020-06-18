@@ -11,19 +11,19 @@ class MyBiRNN(nn.Module):
         # Linear を使って単語の one-hot ベクトルから埋め込みベクトルを得ます
         self.input = nn.Linear(input_size, hidden_size1)
         # BiRNN の活性化関数には tanh を使います
-        self.rnn = nn.RNN(hidden_size1, hidden_size2, num_layers=1, nonlinearity='tanh', bidirectional=True)
-        self.out = nn.Linear(hidden_size2 * 2, output_size)
+        self.rnn = nn.RNN(hidden_size1, hidden_size2, num_layers=2, nonlinearity='tanh', bidirectional=True)
+        self.out = nn.Linear(hidden_size2 * 4, output_size)
 
     def forward(self, input):
         input = self.input(input)
         _, self.hidden = self.rnn(input, self.hidden)
-        output = torch.cat([self.hidden[0][0], self.hidden[1][0]])
+        output = torch.cat([self.hidden[0][0], self.hidden[1][0], self.hidden[2][0], self.hidden[3][0]])
         output = self.out(output)
         return output
 
     # 隠れ状態を初期化します
     def reset(self):
-        self.hidden = torch.zeros(2, 1, self.hidden_size2)
+        self.hidden = torch.zeros(4, 1, self.hidden_size2)
 
 def main():
     # 単語のＩＤ化に 80 のプログラムを使い、対応表として辞書 word_id_dict を得ます
