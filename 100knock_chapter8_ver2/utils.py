@@ -1,6 +1,5 @@
 import nltk  # nltk.download('all') 済み
 import torch
-import numpy as np
 
 # データファイルから特徴行列Ｘと正解ベクトルＹを返します
 # 引数：ファイルへのパス、単語ベクトル変換用モデル、カテゴリ-ラベル対
@@ -19,12 +18,4 @@ def make_vector(filepath, vector_model, category_table):
             y_vector.append(category_table[category])  # Yは y_vector に入れときます
         x_matrix = torch.cat(x_matrix, dim=0)  # x_matrix を行列に変換します
         y_vector = torch.tensor(y_vector)  # y_vector をベクトルに変換します
-    return x_matrix, y_vector
-
-# npz ファイルから行列ＸとベクトルＹを取り出します
-# 引数：ファイルへのパス
-def load_vectorizer_file(filepath):
-    load_array = np.load(filepath)
-    x_matrix = load_array['arr_0']
-    y_vector = load_array['arr_1']
     return x_matrix, y_vector

@@ -1,4 +1,8 @@
+import torch
 from torch import nn
+
+# 初期のモデルのパラメータがプログラムごとで変化しないように固定します
+torch.manual_seed(0)
 
 # 単層ニューラルネットワーク
 class SingleNet(nn.Module):
