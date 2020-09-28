@@ -8,6 +8,7 @@ import utils
 import models
 
 def main():
+    # コマンドライン引数から必要な情報を得ます
     category_table = {'b': 0, 't': 1, 'e': 2, 'm': 3}
     if len(sys.argv) < 4:
         print('python 100knock_chapter9_ver2_80 [dict_filepath] [train_filepath] [test_filepath]')
@@ -34,6 +35,7 @@ def main():
             print('もう一度、入力して下さい。')
             test_filepath = input()
 
+    # CNNモデルを作ります
     input_size = max(word_id_dict.values()) + 1
     embed_size = 300
     hidden_size = 50
@@ -42,6 +44,7 @@ def main():
     loss = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.1)
 
+    # 訓練を行います
     epoch_num = 10
     for epoch in range(epoch_num):
         epoch_loss = []

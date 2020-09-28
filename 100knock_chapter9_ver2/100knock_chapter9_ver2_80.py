@@ -5,6 +5,7 @@ import os
 import utils
 
 def main():
+    # コマンドライン引数から必要な情報を得ます
     if len(sys.argv) < 2:
         print('python 100knock_chapter9_ver2_80 [dict_filepath]')
         sys.exit()
@@ -18,6 +19,7 @@ def main():
             print('もう一度、入力して下さい。')
             filepath = input()
 
+    # word_id_dict によりＩＤ化します
     print('ID化したい文を入力して下さい。')
     sentence = input()
     while(sentence != ''):

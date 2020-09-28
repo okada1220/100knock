@@ -4,6 +4,7 @@ import nltk
 import collections
 import torch
 
+# 対象ファイルから word -> id に変換する辞書を得ます
 def make_word_id_dict(filepath):
     words_frequency = collections.defaultdict(int)
     with open(filepath, 'r', encoding='utf-8') as file:
@@ -27,6 +28,7 @@ def make_word_id_dict(filepath):
 
     return word_id_dict
 
+# word_id_dict を用いて、sentence を tensor 型の id 列に変換します
 def trans_words_id(word_id_dict, sentence):
     sentence = sentence.strip()
     words = nltk.word_tokenize(sentence)
@@ -34,6 +36,7 @@ def trans_words_id(word_id_dict, sentence):
 
     return words_id
 
+# 対象ファイルから category_table と word_id_dict を用いて、tensor 型の category と title で分けてまとめます
 def split_category_title(filepath, category_table, word_id_dict):
     categories = []
     titles = []

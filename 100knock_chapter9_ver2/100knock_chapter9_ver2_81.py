@@ -6,6 +6,7 @@ import utils
 import models
 
 def main():
+    # コマンドライン引数から必要な情報を得ます
     if len(sys.argv) < 2:
         print('python 100knock_chapter9_ver2_80 [dict_filepath]')
         sys.exit()
@@ -19,6 +20,7 @@ def main():
             print('もう一度、入力して下さい。')
             filepath = input()
 
+    # RNNモデルを作ります
     input_size = max(word_id_dict.values()) + 1
     embed_size = 300
     hidden_size = 50
@@ -26,6 +28,7 @@ def main():
     model = models.RNN(input_size, embed_size, hidden_size, output_size)
     model.reset()
 
+    # RNNモデルの出力から入力文のカテゴリを予測します
     category_table = {'b':0, 't':1, 'e':2, 'm':3}
     print('予測したい文を入力して下さい。')
     sentence = input()
@@ -33,6 +36,7 @@ def main():
         words_id = utils.trans_words_id(word_id_dict, sentence)
         output = model.forward(words_id.unsqueeze(0)).squeeze(0)
         print(output)
+        # RNNモデルの出力である各カテゴリのソフトマックス関数の値からカテゴリを予測します
         output = output.argmax().item()
         for key, value in category_table.items():
             if value == output:

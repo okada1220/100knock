@@ -13,6 +13,7 @@ TensorDataset, DataLoader を使う場合
 """
 
 def main():
+    # コマンドライン引数から必要な情報を得ます
     category_table = {'b': 0, 't': 1, 'e': 2, 'm': 3}
     if len(sys.argv) < 4:
         print('python 100knock_chapter9_ver2_80 [dict_filepath] [train_filepath] [batch_size]')
@@ -39,6 +40,7 @@ def main():
             batch_size = input()
     batch_size = int(batch_size)
 
+    # 全てのデータ（タイトル）を最大長でパディングします
     max_length = 0
     for title in train_title:
         if max_length < len(title):
@@ -51,6 +53,7 @@ def main():
     train_dataset = TensorDataset(padding_train_title, train_category)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
+    # RNNモデルを作ります
     input_size = padding_id + 1
     embed_size = 300
     hidden_size = 50
@@ -59,6 +62,7 @@ def main():
     loss = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.1)
 
+    # 訓練を行います
     epoch_num = 10
     for epoch in range(epoch_num):
         epoch_loss = []

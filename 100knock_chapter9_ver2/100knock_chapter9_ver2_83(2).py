@@ -13,6 +13,7 @@ TensorDataset, DataLoader を使わない場合
 """
 
 def main():
+    # コマンドライン引数から必要な情報を得ます
     category_table = {'b': 0, 't': 1, 'e': 2, 'm': 3}
     if len(sys.argv) < 4:
         print('python 100knock_chapter9_ver2_80 [dict_filepath] [train_filepath] [batch_size]')
@@ -39,6 +40,7 @@ def main():
             batch_size = input()
     batch_size = int(batch_size)
 
+    # RNNモデルを作ります
     input_size = max(word_id_dict.values()) + 1
     embed_size = 300
     hidden_size = 50
@@ -47,8 +49,10 @@ def main():
     loss = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.1)
 
+    # 訓練を行います
     epoch_num = 10
 
+    # バッチサイズごとに訓練データを区切ります（余りは ramain として最後のバッチとして加えます）
     batch_num = int(len(train_title) / batch_size)
     remain_title = train_title[batch_num * batch_size - 1:]
     remain_len_title = torch.tensor([len(title) for title in remain_title])
@@ -65,6 +69,7 @@ def main():
             optimizer.zero_grad()
             model.reset(batch_size=batch_size)
 
+            # 訓練データからバッチサイズごとに取り出します
             batch_title = train_title[i * batch_size : (i+1) * batch_size]
             len_title = torch.tensor([len(title) for title in batch_title])
             batch_title = sorted(batch_title, key=lambda x: x.shape[0], reverse=True)
@@ -73,10 +78,12 @@ def main():
             true_category = train_category[i * batch_size : (i+1) * batch_size]
             true_category = torch.gather(true_category, -1, sort_idx)
 
+            # ＧＰＵに送ります
             batch_title = batch_title.cuda()
             len_title = len_title.cuda()
             true_category = true_category.cuda()
 
+            # 予測・損失の計算・勾配の更新を行います
             pred_train_category = model.forward(batch_title, len_title)
             train_loss = loss(pred_train_category, true_category)
             train_loss.backward()
@@ -84,6 +91,7 @@ def main():
             epoch_loss.append(train_loss.item())
             epoch_accuracy += (true_category == pred_train_category.argmax(1)).sum().item()
 
+        # remain での訓練を行います
         optimizer.zero_grad()
         model.reset(batch_size=len(remain_title))
 

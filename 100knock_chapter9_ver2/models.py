@@ -6,6 +6,7 @@ from torch import nn
 # 初期のモデルのパラメータがプログラムごとで変化しないように固定します
 torch.manual_seed(0)
 
+# 通常の RNNモデルです
 class RNN(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size):
         super().__init__()
@@ -26,6 +27,7 @@ class RNN(nn.Module):
     def reset(self):
         self.hidden = torch.zeros(1, 1, self.hidden_size)
 
+# 最後の softmax を除いた RNNモデルです（損失関数のクロスエントロピが softmax を含んでいるため）
 class RNN_simple(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size):
         super().__init__()
@@ -44,6 +46,7 @@ class RNN_simple(nn.Module):
     def reset(self):
         self.hidden = torch.zeros(1, 1, self.hidden_size)
 
+# 100knock_chapter9_ver2_84 で使う RNNモデルです
 class RNN_simple_minibatch_2(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size):
         super().__init__()
@@ -63,6 +66,7 @@ class RNN_simple_minibatch_2(nn.Module):
     def reset(self, batch_size):
         self.hidden = torch.zeros(1, batch_size, self.hidden_size)
 
+# 100knock_chapter9_ver2_83(1) で使う RNNモデルです
 class RNN_simple_minibatch_gpu(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size, padding_idx):
         super().__init__()
@@ -81,6 +85,7 @@ class RNN_simple_minibatch_gpu(nn.Module):
     def reset(self, batch_size):
         self.hidden = torch.zeros(1, batch_size, self.hidden_size).cuda()
 
+# 100knock_chapter9_ver2_83(2) で使う RNNモデルです
 class RNN_simple_minibatch_gpu_2(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size):
         super().__init__()
@@ -100,6 +105,7 @@ class RNN_simple_minibatch_gpu_2(nn.Module):
     def reset(self, batch_size):
         self.hidden = torch.zeros(1, batch_size, self.hidden_size).cuda()
 
+# 100knock_chapter9_ver2_84 で使う多層双方向 RNN モデルです
 class MultiRNN_simple_minibatch(nn.Module):
     def __init__(self, num_layers, input_size, embed_size, hidden_size, output_size):
         super().__init__()
@@ -121,6 +127,7 @@ class MultiRNN_simple_minibatch(nn.Module):
     def reset(self, batch_size):
         self.hidden = torch.zeros(self.num_layers * 2, batch_size, self.hidden_size)
 
+# 通常の CNNモデルです
 class CNN(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size):
         super().__init__()
@@ -142,6 +149,7 @@ class CNN(nn.Module):
         output = self.softmax(linear_output)
         return output
 
+# 最後の softmax を除いた RNNモデルです（損失関数のクロスエントロピが softmax を含んでいるため）
 class CNN_simple(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size):
         super().__init__()
@@ -161,6 +169,7 @@ class CNN_simple(nn.Module):
         linear_output = self.linear(maxpool_output)
         return linear_output
 
+# 100knock_chapter9_ver2_88 で使うニューラルネットワークモデルです
 class MultiNet_simple(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size):
         super().__init__()

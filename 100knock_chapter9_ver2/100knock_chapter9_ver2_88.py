@@ -8,6 +8,7 @@ import optuna
 import utils
 import models
 
+# パラメータ（オプティマイザの種類、学習レート）を受け取り、CNNモデルを作る関数です。モデル、損失関数、オプティマイザを返します。
 def set_params(params):
     input_size = max(word_id_dict.values()) + 1
     embed_size = 300
@@ -21,6 +22,7 @@ def set_params(params):
         optimizer = optim.Adam(model.parameters(), lr=params['learning_rate'])
     return model, loss, optimizer
 
+# 訓練を行う関数です。訓練中の評価データに対する最小の損失の値を返します。
 def train_eval_function(model, loss, optimizer, result_print=False):
     epoch_num = 10
     min_test_loss = 9999
@@ -51,6 +53,7 @@ def train_eval_function(model, loss, optimizer, result_print=False):
             print('損失：', test_loss.item(), '\t正解率：', test_accuracy)
     return min_test_loss
 
+# optuna 用パラメータ関数です。オプティマイザの種類、学習レートに対して、グリッドサーチを行います。最小化する対象は評価データの最小の損失の値です。
 def objective(trial):
     params = {'optimizer': trial.suggest_categorical('optimizer', ['SGD', 'Adam']),
               'learning_rate': trial.suggest_loguniform('learning_rate', 1e-5, 1e-2)}
@@ -59,6 +62,7 @@ def objective(trial):
     return min_test_loss
 
 def main():
+    # コマンドライン引数から必要な情報を得ます
     category_table = {'b': 0, 't': 1, 'e': 2, 'm': 3}
     if len(sys.argv) < 4:
         print('python 100knock_chapter9_ver2_80 [dict_filepath] [train_filepath] [test_filepath]')
@@ -86,11 +90,13 @@ def main():
             print('もう一度、入力して下さい。')
             test_filepath = input()
 
+    # グリッドサーチを行います
     study = optuna.create_study()
     study.optimize(objective, n_trials=30)
     best_params = study.best_params
     print(best_params)
 
+    # CNNモデルを作ります
     model, loss, optimizer = set_params(best_params)
     train_eval_function(model, loss, optimizer, result_print=True)
 
