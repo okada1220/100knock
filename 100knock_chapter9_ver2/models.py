@@ -66,6 +66,26 @@ class RNN_simple_minibatch_2(nn.Module):
     def reset(self, batch_size):
         self.hidden = torch.zeros(1, batch_size, self.hidden_size)
 
+# 100knock_chapter9_ver2_83(3) で使う RNNモデルです
+class RNN_simple_minibatch(nn.Module):
+    def __init__(self, input_size, embed_size, hidden_size, output_size, padding_idx=None):
+        super().__init__()
+        self.embed = nn.Embedding(input_size, embed_size, padding_idx=padding_idx)
+        self.rnn = nn.RNN(embed_size, hidden_size,
+                          num_layers=1, nonlinearity='tanh', batch_first=True)
+        self.hidden_size = hidden_size
+        self.linear = nn.Linear(hidden_size, output_size)
+
+    def forward(self, input, input_len):
+        embed_input = self.embed(input)
+        padding_input = nn.utils.rnn.pack_padded_sequence(embed_input, input_len, batch_first=True, enforce_sorted=False)
+        rnn_output, self.hidden = self.rnn(padding_input, self.hidden)
+        linear_output = self.linear(self.hidden.squeeze(0))
+        return linear_output
+
+    def reset(self, batch_size):
+        self.hidden = torch.zeros(1, batch_size, self.hidden_size)
+
 # 100knock_chapter9_ver2_83(1) で使う RNNモデルです
 class RNN_simple_minibatch_gpu(nn.Module):
     def __init__(self, input_size, embed_size, hidden_size, output_size, padding_idx):
@@ -105,7 +125,7 @@ class RNN_simple_minibatch_gpu_2(nn.Module):
     def reset(self, batch_size):
         self.hidden = torch.zeros(1, batch_size, self.hidden_size).cuda()
 
-# 100knock_chapter9_ver2_84 で使う多層双方向 RNN モデルです
+# 100knock_chapter9_ver2_85 で使う多層双方向 RNN モデルです
 class MultiRNN_simple_minibatch(nn.Module):
     def __init__(self, num_layers, input_size, embed_size, hidden_size, output_size):
         super().__init__()

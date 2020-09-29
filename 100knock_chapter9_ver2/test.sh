@@ -17,9 +17,9 @@ case "$1" in
  do
    echo "バッチサイズ：$a"
    /mnt/c/Users/naoki/Anaconda3/envs/100knock/python.EXE ${filename} ${dict_filepath} ${train_filepath} $a
-   a=`expr $a * 2`
-  done
-  ;;
+   a=`expr $a "*" 2`
+ done
+ ;;
  "84") /mnt/c/Users/naoki/Anaconda3/envs/100knock/python.EXE 100knock_chapter9_ver2_84.py ${dict_filepath} ${train_filepath} ${weight_filepath} 1
  ;;
  "85") /mnt/c/Users/naoki/Anaconda3/envs/100knock/python.EXE 100knock_chapter9_ver2_85.py ${dict_filepath} ${train_filepath} 1 2
