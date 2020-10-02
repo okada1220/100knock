@@ -8,7 +8,7 @@ import models
 def main():
     # コマンドライン引数から必要な情報を得ます
     if len(sys.argv) < 2:
-        print('python 100knock_chapter9_ver2_80 [dict_filepath]')
+        print('python 100knock_chapter9_ver2_86 [dict_filepath]')
         sys.exit()
     filepath = sys.argv[1]
     while(1):

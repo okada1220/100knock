@@ -30,4 +30,5 @@ case "$1" in
  ;;
  "88") /mnt/c/Users/naoki/Anaconda3/envs/100knock/python.EXE 100knock_chapter9_ver2_88.py ${dict_filepath} ../100knock_chapter6/minimini-train.txt ../100knock_chapter6/minimini-test.txt
  ;;
+ "89") /mnt/c/Users/naoki/Anaconda3/envs/100knock/python.EXE 100knock_chapter9_ver2_89.py ../100knock_chapter6/train.txt --batch 32 --lr 0.01
 esac

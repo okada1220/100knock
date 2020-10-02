@@ -208,3 +208,15 @@ class MultiNet_simple(nn.Module):
         maxpool_output = maxpool_output.squeeze(-1).squeeze(-1)  # (channel, height) -> (channel, 1)  -> (channel)
         linear_output = self.linear(maxpool_output)
         return linear_output
+
+# 100knock_chapter9_ver2_89
+from transformers import *
+class BertClassifier(nn.Module):
+    def __init__(self):
+        super().__init__()
+        config = BertConfig.from_pretrained('bert-base-uncased', num_labels=4)
+        self.bert = BertForSequenceClassification.from_pretrained('bert-base-uncased', config=config)
+
+    def forward(self, input, attention_input):
+        output = self.bert(input_ids=input, attention_mask=attention_input)
+        return output[0]

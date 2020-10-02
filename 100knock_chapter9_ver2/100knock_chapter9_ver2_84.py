@@ -17,7 +17,7 @@ def main():
     # コマンドライン引数から必要な情報を得ます
     category_table = {'b': 0, 't': 1, 'e': 2, 'm': 3}
     if len(sys.argv) < 5:
-        print('python 100knock_chapter9_ver2_80 [dict_filepath] [train_filepath] [weight_filepath] [batch_size]')
+        print('python 100knock_chapter9_ver2_84 [dict_filepath] [train_filepath] [weight_filepath] [batch_size]')
         sys.exit()
     dict_filepath = sys.argv[1]
     train_filepath = sys.argv[2]
